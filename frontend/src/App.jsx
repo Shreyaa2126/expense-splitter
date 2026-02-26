@@ -34,7 +34,7 @@ async function login() {
   alert("Email and password are required");
   return;
 }
-  const res = await fetch(`${API}/login`, {
+  const res = await fetch(`${API}/api/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email: email.trim(), password })
@@ -61,7 +61,7 @@ if (!email.includes("@")) {
   alert("Enter a valid email");
   return;
 }
-  const res = await fetch(`${API}/register`, {
+  const res = await fetch(`${API}/api/register`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -99,14 +99,14 @@ function logout() {
 
   async function loadMembers() {
     const res = await fetch(
-      `${API}/members?workspace_id=${workspaceId}`
+      `${API}/api/members?workspace_id=${workspaceId}`
     );
     const data = await res.json();
     setMembers(data);
   }
   async function loadExpenses() {
   const res = await fetch(
-    `${API}/expenses?workspace_id=${workspaceId}`
+    `${API}/api/expenses?workspace_id=${workspaceId}`
   );
   const data = await res.json();
   setExpenses(data);
@@ -115,7 +115,7 @@ function logout() {
   async function addMember() {
     if (!name.trim()) return;
 
-    await fetch(`${API}/members`, {
+    await fetch(`${API}/api/members`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -131,7 +131,7 @@ function logout() {
   const ok = window.confirm("Delete this participant?");
   if (!ok) return;
 
-  const res = await fetch(`${API}/members/${id}`, {
+  const res = await fetch(`${API}/api/members/${id}`, {
     method: "DELETE"
   });
 
@@ -199,7 +199,7 @@ if (splitType === "percent") {
 }
 
 
-  await fetch(`${API}/expenses`, {
+  await fetch(`${API}/api/expenses`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -225,7 +225,7 @@ async function deleteExpense(id) {
   const ok = window.confirm("Delete this expense?");
   if (!ok) return;
 
-  await fetch(`${API}/expenses/${id}`, {
+  await fetch(`${API}/api/expenses/${id}`, {
     method: "DELETE"
   });
 
@@ -236,7 +236,7 @@ async function deleteExpense(id) {
 
 async function computeSettlement() {
   const res = await fetch(
-    `${API}/settle?workspace_id=${workspaceId}`
+    `${API}/api/settle?workspace_id=${workspaceId}`
   );
   const data = await res.json();
   setSettlement(data);
